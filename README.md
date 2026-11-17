@@ -1,34 +1,49 @@
-# SpendWise — Interactive Budgeting Application
+# SpendWise — Personal Budget & Expense Tracker
 
-## Improvements Made to SpendWise This Week
-This week, SpendWise was upgraded from a prompt-and-console script into a fully interactive web application. Users can now set their monthly budget, add categorized expenses through HTML forms, delete individual items or clear the entire list, and immediately see updated totals, remaining balances, and color-coded budget status alerts directly on the webpage.
+## Project Description
+SpendWise is a responsive, interactive personal budgeting web application built with HTML5, CSS3, and JavaScript. Users can set a monthly budget, log categorized expenses, delete individual transactions, and view live spending totals, remaining balances, and color-coded budget health alerts directly on the dashboard.
 
-## How Conditionals Are Used in the Project
-Conditional statements (`if`, `else if`, `else`) drive both input validation and real-time financial feedback:
-* **Input Validation:** Verifies that submitted budget and expense amounts are positive numbers and that expense names are not empty before saving.
-* **Budget Health Evaluation:** Compares `totalSpent` and `remainingBalance` against `totalBudget`:
-  * Displays a **neutral** prompt when no budget has been set (`totalBudget === 0`).
-  * Displays a **red danger alert** when expenses exceed the budget (`remainingBalance < 0`).
-  * Displays a **yellow warning alert** when spending reaches 80% or more of the budget (`totalSpent >= totalBudget * 0.8`).
-  * Displays a **green confirmation banner** when spending is safely within budget.
-* **Empty State Check:** Checks `expenses.length === 0` to display a friendly placeholder message when the table has no records.
+## Key Features
+* **Live Budget Tracking:** Real-time calculation of total budget, total expenses, percentage spent, and remaining balance.
+* **Smart Status Alerts:** Color-coded banners that warn users when spending reaches 80% or exceeds the monthly budget.
+* **Expense Management:** Add categorized expenses (Rent & Housing, Food & Groceries, Transport, Utilities, Entertainment, Other), delete individual items, or clear all records.
+* **Responsive & Dark Mode Ready:** Adapts cleanly across mobile, tablet, and desktop screens and supports automatic system dark mode.
 
-## How Arrays Are Used to Store Data
-Instead of separate variables for each category, SpendWise stores all transactions inside a centralized `expenses` array (`let expenses = []`). Each time a user adds an expense, an object containing `{ id, name, category, amount }` is pushed into the array. Using an array makes it simple to store any number of records, sum totals dynamically, or remove a specific item using `.filter()`.
+## Technologies Used
+* **HTML5:** Semantic dashboard shell, accessible input forms, and structured expense table.
+* **CSS3:** CSS Grid, Flexbox, `:root` custom properties, responsive media queries, card hover/focus animations, and automatic dark mode (`prefers-color-scheme: dark`).
+* **JavaScript (ES6+):** Arrays, loops, conditional decision-making, DOM manipulation, and event listeners.
+* **Git & GitHub:** Version control and cloud source code hosting.
+* **Netlify:** Cloud hosting and automated continuous deployment (CI/CD).
 
-## How the DOM Is Updated
-JavaScript manipulates the DOM using `document.getElementById()` and `document.createElement()`:
-* **Summary Cards & Header Badge:** Updates `.textContent` for Total Budget, Total Spent, Percentage Used, Remaining Balance, and Budget Status whenever data changes.
-* **Status Banner:** Dynamically updates both the banner's text message and CSS class (`neutral`, `safe`, `warning`, or `danger`).
-* **Expense History Table:** Clears `expenseTableBody.innerHTML` and appends freshly created `<tr>` elements for every stored expense object.
+## Project Structure
+```text
+spendwise/
+├── index.html   # Main dashboard structure and forms
+├── style.css    # Responsive Grid/Flexbox layout, theme variables, and dark mode
+├── script.js    # Budget logic, array state management, and DOM updates
+└── README.md    # Project documentation and deployment details
+```
 
-## How User Interactions Are Handled Through Events
-Event listeners (`addEventListener`) connect user actions on the page to JavaScript functions:
-* **Budget Form (`submit`):** Captures the user's monthly budget, prevents default page reload with `event.preventDefault()`, updates `totalBudget`, and refreshes the dashboard.
-* **Expense Form (`submit`):** Captures the expense name, category, and amount, pushes a new object into `expenses`, clears the form inputs, and refreshes the dashboard.
-* **Clear All Button (`click`):** Empties the `expenses` array and resets the table and totals.
-* **Delete Buttons (`click`):** Calls `deleteExpense(id)` to remove a single expense row and recalculate totals immediately.
+## GitHub Repository Information
+* **Repository Name:** `[web-development-week-6]`
+* **Repository URL:** `[https://github.com/issadiinm-star/web-development-week-6]`
+* **Deployed Branch:** `main`
 
-## Challenges Encountered and How They Were Resolved
-* **Form Submission Refreshing the Page:** Submitting either form initially reloaded the browser and wiped out stored JavaScript array data. Adding `event.preventDefault()` inside both `submit` event listeners resolved this issue.
-* **Duplicate Table Rows on Re-Render:** Adding a second expense initially duplicated earlier rows in the table. Clearing `expenseTableBody.innerHTML = ""` at the start of `renderExpenseTable()` ensured the table cleanly re-renders the current array state every time.
+## Live Netlify Website URL
+* **Live Website:** [https://netlify.app](https://netlify.app)
+
+## Deployment Process Summary
+1. **Deployment Readiness:** Verified that `index.html`, `style.css`, `script.js`, and `README.md` were placed in the root directory with lowercase filenames and relative paths.
+2. **GitHub Repository:** Pushed all project files to a public GitHub repository on the `main` branch.
+3. **Netlify Deployment:** Connected the GitHub repository to Netlify and deployed the site directly from the root directory.
+4. **Custom Site Name:** Updated the default Netlify subdomain to `spendwise-tracker-issa` under **Domain management**.
+5. **Continuous Deployment Test:** Added a visible footer update to `index.html`, committed the change on GitHub, and confirmed that Netlify automatically built and published the update to the live site.
+
+## Challenges Encountered During Deployment
+* **Finding an Available Subdomain:** Initial custom domain names on Netlify were already taken, which was resolved by adding a personal identifier (`spendwise-tracker-issa`) to create a unique subdomain.
+* **Verifying Relative File Paths:** Checked that all CSS and JavaScript links in `index.html` matched exact lowercase filenames (`style.css` and `script.js`) so Netlify's servers loaded all assets without errors.
+
+## Lessons Learned
+* **Continuous Deployment (CI/CD):** Connecting GitHub directly to Netlify automates production updates so every commit pushed to `main` rebuilds and updates the live website within seconds.
+* **Live Environment Testing:** Testing the published `.netlify.app` URL in a separate browser window confirms that responsive layouts, styles, and interactive scripts work properly for end users.
